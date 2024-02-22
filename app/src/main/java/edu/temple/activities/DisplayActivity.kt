@@ -14,13 +14,17 @@ class DisplayActivity : AppCompatActivity() {
 
 
     // TODO Step 3: Use returned value for lyricsDisplayTextView text size
-    val result = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(it.resultCode == RESULT_OK){
-            it.data.apply {  }
-        }
-    }
     private lateinit var lyricsDisplayTextView: TextView
     private lateinit var textSizeSelectorButton: Button
+
+
+    val result = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == RESULT_OK){
+            it.data?.apply {
+                lyricsDisplayTextView.textSize = getStringExtra("Return")?.toFloat() ?: 0f
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
