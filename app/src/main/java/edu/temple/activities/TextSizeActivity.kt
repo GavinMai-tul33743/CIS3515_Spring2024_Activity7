@@ -21,8 +21,6 @@ class TextSizeActivity : AppCompatActivity() {
 
         Log.d("Array values", textSizes.contentToString())
 
-        val returnIntent = Intent(this, DisplayActivity::class.java)
-
         val message = intent.getStringExtra("Size")
 
         with (findViewById(R.id.textSizeSelectorRecyclerView) as RecyclerView) {
@@ -30,7 +28,8 @@ class TextSizeActivity : AppCompatActivity() {
             // TODO Step 2: Pass selected value back to activity that launched TextSizeActivity
             adapter = TextSizeAdapter(textSizes){
 
-                setResult(RESULT_OK)
+                setResult(RESULT_OK, Intent().putExtra("Return", it))
+                finish()
             }
             layoutManager = LinearLayoutManager(this@TextSizeActivity)
         }
