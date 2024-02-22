@@ -18,7 +18,7 @@ class DisplayActivity : AppCompatActivity() {
     private lateinit var textSizeSelectorButton: Button
 
 
-    val result = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+    val resultWaiter = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode == RESULT_OK){
             it.data?.apply {
                 lyricsDisplayTextView.textSize = getStringExtra("Return")?.toFloat() ?: 0f
@@ -36,7 +36,7 @@ class DisplayActivity : AppCompatActivity() {
         textSizeSelectorButton.setOnClickListener {
             val launchIntent = Intent(this, TextSizeActivity::class.java)
             launchIntent.putExtra("Size", it.toString())
-            startActivity(launchIntent)
+            resultWaiter.launch(launchIntent)
 
         }
     }
